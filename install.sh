@@ -1,21 +1,67 @@
 #!/bin/bash
-echo "Howdy Partner! Ready for a lovely setup for Cinnamon? Currently Tested on: Manjaro, Garuda, EndeavourOS"
-$GROUP = "cloudcrusader"
 
-mkdir -p $HOME/projects
+# EndeavourOS/Arch Cinnamon Desktop Setup Script
+# Tested on: Manjaro, Garuda, EndeavourOS
+# Description: Automated setup for development environment with Python, Node.js, and various tools
+
+set -e  # Exit on error
+set -u  # Exit on undefined variable
+
+# Configuration
+GROUP="${USER}"
+LOGFILE="${PWD}/install.log"
+PYTHON_VERSION="3.11.4"
+
+# Color codes for output
+RED='\033[0;31m'
+GREEN='\033[0;32m'
+YELLOW='\033[1;33m'
+NC='\033[0m' # No Color
+
+# Logging function
+log() {
+    echo -e "${GREEN}[$(date +'%Y-%m-%d %H:%M:%S')]${NC} $*" | tee -a "$LOGFILE"
+}
+
+error() {
+    echo -e "${RED}[ERROR]${NC} $*" | tee -a "$LOGFILE"
+}
+
+warning() {
+    echo -e "${YELLOW}[WARNING]${NC} $*" | tee -a "$LOGFILE"
+}
+
+# Check if command exists
+command_exists() {
+    command -v "$1" >/dev/null 2>&1
+}
+
+# Main setup
+log "Howdy Partner! Ready for a lovely setup for Cinnamon?"
+log "Currently Tested on: Manjaro, Garuda, EndeavourOS"
+log "User: ${USER}, Group: ${GROUP}"
+
+# Create project directory
+log "Creating projects directory..."
+mkdir -p "$HOME/projects"
+
+# Configure git
+log "Configuring git..."
 git config --global core.autocrlf input
 
-# Install needed libs
+# Install base development tools
+log "Installing base development tools..."
+yay -S --needed --noconfirm base-devel openssl zlib xz tk zstd cmake make
 
-yay -S --needed base-devel openssl zlib xz tk zstd cmake make 
-
-yay -Syu flatpak snapd bauh discover bauh pamac-all jdownloader2 \
+# Install main packages
+log "Installing main packages..."
+yay -Syu --noconfirm flatpak snapd bauh discover pamac-all jdownloader2 \
          ulauncher albert appimagepool-bin gearlever ocs-url \
-         pyenv nvm oh-my-posh oh-my-posh zsh-command-not-found-git \
+         pyenv nvm oh-my-posh zsh-command-not-found-git \
          zsh-autoswitch-virtualenv-git zsh-sudo fzf floorp cursor-bin \
          cursor-cli docker-desktop perplexity raidrivecli thefuck tfenv \
          spotify spicetify-cli spicetify-theme-dracula-git \
-         jetbrains-toolbox jq guake raindrop github-desktop tfenv
+         jetbrains-toolbox jq guake raindrop github-desktop
 
 # flathub.org
 flatpak remote-add --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo
@@ -82,4 +128,4 @@ pyenv shell 3.11.4
 # https://github.com/nvm-sh/nvm
 nvm install --lts
 npm install -g eslint prettier @anthropic-ai/claude-code
-    
+npm install -g @dwmkerr/terminal-ai
