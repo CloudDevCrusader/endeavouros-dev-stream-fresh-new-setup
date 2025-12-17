@@ -1,0 +1,9 @@
+[14:52:53 2025-12-02] FETCHING Version 2.42.3
+[14:52:53 2025-12-02] DOWNLOADING https://github.com/spicetify/cli/releases/download/v2.42.3/spicetify-2.42.3-linux-amd64.tar.gz
+[14:52:54 2025-12-02] EXTRACTING /home/cloudcrusader/.spicetify/spicetify.tar.gz
+[14:52:54 2025-12-02] SETTING EXECUTABLE PERMISSIONS TO /home/cloudcrusader/.spicetify/spicetify
+[14:52:54 2025-12-02] REMOVING /home/cloudcrusader/.spicetify/spicetify.tar.gz
+[14:52:54 2025-12-02] spicetify path already set in /home/cloudcrusader/.bashrc, continuing...
+[14:52:54 2025-12-02] spicetify path already set in /home/cloudcrusader/.bash_profile, continuing...
+[14:52:54 2025-12-02] spicetify v2.42.3 was installed successfully to /home/cloudcrusader/.spicetify
+[14:52:54 2025-12-02] Run 'spicetify --help' to get started
